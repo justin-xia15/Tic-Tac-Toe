@@ -9,11 +9,11 @@ const square8 = document.getElementById("7");
 const square9 = document.getElementById("8");
 
 let currentPlayer = 1;
-let player1Moves = [];
-let player2Moves = [];
+let turns = 0;
 let gameState = ["", "", "",
-                 "", "", "",
-                 "", "", ""]
+  "", "", "",
+  "", "", ""
+];
 
 function play() {
   if (currentPlayer === 1) {
@@ -23,6 +23,7 @@ function play() {
         this.innerText = "O";
         this.style.pointerEvents = "none";
         gameState[this.id] = "O";
+        turns++
         changePlayer();
         if (currentPlayer === 2) {
           document.querySelector("h2").innerText = "Player 2's turn."
@@ -42,4 +43,21 @@ function changePlayer() {
   }
 }
 
+function restart() {
+  document.querySelector("h2").innerText = "Player 1's turn";
+  currentPlayer = 1;
+  turns = 0;
+  gameState = ["", "", "",
+    "", "", "",
+    "", "", ""
+  ];
+  for (let i = 0; i < 9; i++) {
+    document.querySelectorAll(".box")[i].innerText = "";
+    document.querySelectorAll(".box")[i].style.pointerEvents = "auto";
+  }
+}
+
+document.querySelector(".btn").addEventListener("click", function() {
+  restart();
+});
 play();
