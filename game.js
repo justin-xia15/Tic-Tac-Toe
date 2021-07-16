@@ -8,16 +8,34 @@ const square7 = document.getElementById("6");
 const square8 = document.getElementById("7");
 const square9 = document.getElementById("8");
 
+let currentPlayer = "X";
+let player1Moves = [];
+let player2Moves = [];
 
-let gameState = ["", "", "",
-                 "", "", "",
-                 "", "", ""];
+function play() {
+  if (currentPlayer === "X") {
+    for (let i = 0; i < 9; i++) {
+      document.querySelectorAll(".box")[i].addEventListener("click", function() {
+        // gameState[this.innerText - 1] = "O";
+        document.querySelector("h2").innerText = "Player 1's turn."
+        this.innerText = "O";
+        changePlayer();
+        if (currentPlayer === "O") {
+          // gameState[this.innerText - 1] = "X";
+          document.querySelector("h2").innerText = "Player 2's turn."
+          this.innerText = "X";
+        }
+      });
+    }
+  }
+}
 
-function playerTurn() {
-for (let i = 0; i < 9; i++) {
-  document.querySelectorAll(".box")[i].addEventListener("click", function() {
-    gameState[this.innerText - 1] = "X";
-    this.innerText = "X";
-  });
+function changePlayer() {
+  if (currentPlayer === "X") {
+    currentPlayer = "O";
+  } else if (currentPlayer === "O") {
+    currentPlayer = "X";
+  }
 }
-}
+
+play();
