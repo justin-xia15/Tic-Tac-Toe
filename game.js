@@ -37,9 +37,10 @@ function changePlayer() {
 }
 
 function restart() {
-  document.querySelector("h2").innerText = "Player 1's turn";
+  document.querySelector("h2").innerText = "X's turn";
   currentPlayer = 1;
   turns = 0;
+  winner = false;
   gameState = ["", "", "",
     "", "", "",
     "", "", ""
@@ -57,30 +58,48 @@ play();
 
 function checkWin(player) {
   if (gameState[0] === player && gameState[1] === player && gameState[2] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
   } else if (gameState[3] === player && gameState[4] === player && gameState[5] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
   } else if (gameState[6] === player && gameState[7] === player && gameState[8] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
   } else if (gameState[0] === player && gameState[3] === player && gameState[6] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
   } else if (gameState[1] === player && gameState[4] === player && gameState[7] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
   } else if (gameState[2] === player && gameState[5] === player && gameState[8] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
   }
   else if(gameState[2] === player && gameState[4] === player && gameState[6] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
   }
   else if(gameState[0] === player && gameState[4] === player && gameState[8] === player) {
-    console.log(`${player} is the winner!`);
+    document.querySelector("h2").innerText = `${player} is the winner!`;
     winner = true;
+
+  }
+
+  if(winner === true) {
+    endGame();
+  }
+}
+
+function endGame() {
+  for(let i = 0; i < 9; i++) {
+    document.querySelectorAll(".box")[i].style.pointerEvents = "none";
   }
 }
