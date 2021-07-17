@@ -1,10 +1,11 @@
 let currentPlayer = 1;
-let turns = 0;
+let moves = 0;
 let winner = false;
 let gameState = ["", "", "",
-  "", "", "",
-  "", "", ""
-];
+                 "", "", "",
+                 "", "", ""];
+
+play();
 
 function play() {
   if (currentPlayer === 1) {
@@ -14,7 +15,7 @@ function play() {
         this.innerText = "O";
         this.style.pointerEvents = "none";
         gameState[this.id] = "O";
-        turns++
+        moves++
         changePlayer();
         if (currentPlayer === 2) {
           document.querySelector("h2").innerText = "O's turn."
@@ -23,6 +24,7 @@ function play() {
         }
         checkWin("X");
         checkWin("O");
+        checkDraw();
       });
     }
   }
@@ -39,12 +41,11 @@ function changePlayer() {
 function restart() {
   document.querySelector("h2").innerText = "X's turn";
   currentPlayer = 1;
-  turns = 0;
+  moves = 0;
   winner = false;
   gameState = ["", "", "",
-    "", "", "",
-    "", "", ""
-  ];
+               "", "", "",
+               "", "", ""];
   for (let i = 0; i < 9; i++) {
     document.querySelectorAll(".box")[i].innerText = "";
     document.querySelectorAll(".box")[i].style.pointerEvents = "auto";
@@ -54,7 +55,6 @@ function restart() {
 document.querySelector(".btn").addEventListener("click", function() {
   restart();
 });
-play();
 
 function checkWin(player) {
   if (gameState[0] === player && gameState[1] === player && gameState[2] === player) {
@@ -101,5 +101,11 @@ function checkWin(player) {
 function endGame() {
   for(let i = 0; i < 9; i++) {
     document.querySelectorAll(".box")[i].style.pointerEvents = "none";
+  }
+}
+
+function checkDraw() {
+  if(moves === 9 && winner === false) {
+    document.querySelector("h2").innerText = "It's a draw!";
   }
 }
