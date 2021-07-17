@@ -1,15 +1,6 @@
-const square1 = document.getElementById("0");
-const square2 = document.getElementById("1");
-const square3 = document.getElementById("2");
-const square4 = document.getElementById("3");
-const square5 = document.getElementById("4");
-const square6 = document.getElementById("5");
-const square7 = document.getElementById("6");
-const square8 = document.getElementById("7");
-const square9 = document.getElementById("8");
-
 let currentPlayer = 1;
 let turns = 0;
+let winner = false;
 let gameState = ["", "", "",
   "", "", "",
   "", "", ""
@@ -19,17 +10,19 @@ function play() {
   if (currentPlayer === 1) {
     for (let i = 0; i < 9; i++) {
       document.querySelectorAll(".box")[i].addEventListener("click", function() {
-        document.querySelector("h2").innerText = "Player 1's turn."
+        document.querySelector("h2").innerText = "X's turn."
         this.innerText = "O";
         this.style.pointerEvents = "none";
         gameState[this.id] = "O";
         turns++
         changePlayer();
         if (currentPlayer === 2) {
-          document.querySelector("h2").innerText = "Player 2's turn."
+          document.querySelector("h2").innerText = "O's turn."
           this.innerText = "X";
           gameState[this.id] = "X";
         }
+        checkWin("X");
+        checkWin("O");
       });
     }
   }
@@ -61,3 +54,33 @@ document.querySelector(".btn").addEventListener("click", function() {
   restart();
 });
 play();
+
+function checkWin(player) {
+  if (gameState[0] === player && gameState[1] === player && gameState[2] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  } else if (gameState[3] === player && gameState[4] === player && gameState[5] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  } else if (gameState[6] === player && gameState[7] === player && gameState[8] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  } else if (gameState[0] === player && gameState[3] === player && gameState[6] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  } else if (gameState[1] === player && gameState[4] === player && gameState[7] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  } else if (gameState[2] === player && gameState[5] === player && gameState[8] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  }
+  else if(gameState[2] === player && gameState[4] === player && gameState[6] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  }
+  else if(gameState[0] === player && gameState[4] === player && gameState[8] === player) {
+    console.log(`${player} is the winner!`);
+    winner = true;
+  }
+}
